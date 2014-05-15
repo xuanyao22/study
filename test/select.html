@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>select</title>
+<style type="text/css">
+body,ul,ol,li,button{margin:0;padding:0;}
+body{font:12px/1.5 arial,\5b8b\4f53,sans-serif;}
+ul,ol{list-style:none;}
+a{color:#000;text-decoration:none;}
+a:hover{color:#c00;}
+
+.select{position:relative;display:inline-block;font-size:14px;margin:10px;}
+.select .area{float:left;padding:0 12px;text-align:center;vertical-align:middle;line-height:30px;border:1px solid;border-radius:4px 0 0 4px;}
+.select .btn{cursor:pointer;padding:0 6px;border:0;line-height:30px;border:1px solid;border-left:0;border-radius:0 4px 4px 0;-webkit-user-select:none;-user-select:none;outline:none;}
+.select .btn .caret{display:inline-block;vertical-align:middle;width:0;height:0;border-top:4px solid;border-right:4px solid transparent;border-left:4px solid transparent;}
+.select .default{background:#fff;color:#333;border-color:#ccc;}
+.select .default:hover{background:#f7f5fa;}
+.select .default.on{background:#f7f5fa;-webkit-box-shadow:inset 0 3px 5px rgba(0,0,0,0.125);box-shadow:inset 0 3px 5px rgba(0,0,0,0.125);}
+.select .menu{position:absolute;top:34px;left:0;max-height:200px;overflow:auto;margin:2px 0;padding:8px 0;background:#fff;border:1px solid #ccc;border-radius:2px;box-shadow:0 2px 12px rgba(0,0,0,0.175);-webkit-box-shadow:0 2px 12px rgba(0,0,0,0.175);display:none;}
+.select .menu li{cursor:pointer;padding:3px 20px;line-height:24px;color:#333;}
+.select .menu li:hover{background:#f7f5fa;} 
+</style>
+</head>
+<body>
+<div class="select">
+	<span id="result" class="area default">option</span>
+	<button id="btn" class="btn default"><span class="caret"></span></button>
+	<input id="input" type="hidden" value="" />
+	<ul id="menu" class="menu">
+		<li>option1</li>
+		<li>option2</li>
+		<li>option3</li>
+		<li>option4</li>
+		<li>option5</li>
+		<li>option6</li>
+	<ul>
+</div>
+<script type="text/javascript">
+document.getElementById("btn").onclick=function(e){
+	if (window.event) {  
+ 		e.cancelBubble=true;  
+ 	} else {  
+ 		//e.preventDefault();  
+ 		e.stopPropagation();  
+	 } 
+	document.getElementById("btn").className+=" on";
+	document.getElementById("menu").style.display="block";
+}
+
+var opt=document.getElementById("menu").getElementsByTagName("li");
+var len=opt.length;
+function close(){
+	document.getElementById("btn").className=document.getElementById("btn").className.replace(/ on/,''); 
+	document.getElementById("menu").style.display="none";
+}
+
+for(i=0;i<len;i++){
+	opt[i].onclick=function(e){
+		 if (window.event) {  
+ 			e.cancelBubble=true;  
+ 		} else {  
+ 		//e.preventDefault();  
+ 		e.stopPropagation();  
+	 } 
+		close();
+		document.getElementById("result").innerHTML=this.innerHTML;
+		document.getElementById("input").value=this.innerHTML;
+	}
+}
+
+document.getElementsByTagName("body")[0].onclick=function(){
+	close();
+}
+</script>
+</body>
+</html>
